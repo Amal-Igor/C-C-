@@ -1,0 +1,46 @@
+\hypertarget{liste_chainee_8h_source}{}\doxysection{liste\+Chainee.\+h}
+\label{liste_chainee_8h_source}\index{C:/Users/amalb/OneDrive/Bureau/POEI AJC C++/Programmation C S3/S4 Workspace/Project1/ListeChainée/listeChainee.h@{C:/Users/amalb/OneDrive/Bureau/POEI AJC C++/Programmation C S3/S4 Workspace/Project1/ListeChainée/listeChainee.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{keyword}{struct }\mbox{\hyperlink{structelement}{element}}}
+\DoxyCodeLine{3 \{}
+\DoxyCodeLine{4     \textcolor{keyword}{struct }\mbox{\hyperlink{structelement}{element}}* pAvant; \textcolor{comment}{//8o}}
+\DoxyCodeLine{5     \textcolor{keywordtype}{int} valeur; \textcolor{comment}{//4o}}
+\DoxyCodeLine{6     \textcolor{keyword}{struct }\mbox{\hyperlink{structelement}{element}}* pApres; \textcolor{comment}{//8o}}
+\DoxyCodeLine{7 \};}
+\DoxyCodeLine{8 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structelement}{element}}* \mbox{\hyperlink{structelement}{pElement}};}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{struct }\mbox{\hyperlink{structliste_int}{listeInt}}}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \mbox{\hyperlink{structelement}{pElement}} premierElement;}
+\DoxyCodeLine{13     \textcolor{keywordtype}{int} tailleListe;}
+\DoxyCodeLine{14 \};}
+\DoxyCodeLine{15 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structliste_int}{listeInt}}* \mbox{\hyperlink{structliste_int}{pListeInt}};}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{21 \mbox{\hyperlink{structliste_int}{pListeInt}} initListe();}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{28 \textcolor{keywordtype}{void} ajouterInt(\mbox{\hyperlink{structliste_int}{pListeInt}} liste, \textcolor{keywordtype}{int} valeur);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{36 \textcolor{keywordtype}{int} valeur(\mbox{\hyperlink{structliste_int}{pListeInt}} liste, \textcolor{keywordtype}{int} pos);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{42 \textcolor{keywordtype}{void} afficher(\mbox{\hyperlink{structliste_int}{pListeInt}} liste);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{49 \textcolor{keywordtype}{void} ajouterDebutInt(\mbox{\hyperlink{structliste_int}{pListeInt}} liste, \textcolor{keywordtype}{int} valeur);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{56 \textcolor{keywordtype}{void} supprInt(\mbox{\hyperlink{structliste_int}{pListeInt}} liste, \textcolor{keywordtype}{int} pos);}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{62 \textcolor{keywordtype}{void} supprliste(\mbox{\hyperlink{structliste_int}{pListeInt}} liste);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 }
+\DoxyCodeLine{71 \textcolor{keywordtype}{int} findByValue(\textcolor{keywordtype}{int} valeur, \mbox{\hyperlink{structliste_int}{pListeInt}} liste);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{79 \textcolor{keywordtype}{void} insertValueAtPos(\mbox{\hyperlink{structliste_int}{pListeInt}} liste, \textcolor{keywordtype}{int} val, \textcolor{keywordtype}{int} pos);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{86 \textcolor{keywordtype}{void} exportElement(\mbox{\hyperlink{structliste_int}{pListeInt}} liste, FILE* output);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 }
+\DoxyCodeLine{94 \mbox{\hyperlink{structliste_int}{pListeInt}} importElement(FILE* intput);}
+\DoxyCodeLine{95 }
+
+\end{DoxyCode}
