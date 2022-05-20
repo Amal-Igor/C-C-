@@ -1,6 +1,6 @@
 #include "MyPoint.h"
-#include "MyPoint.h"
-#include <stdio.h>
+
+
 
 MyPoint::MyPoint()
 {
@@ -8,24 +8,44 @@ MyPoint::MyPoint()
 	mY = 0;
 
 }
+
 MyPoint::MyPoint(int x, int y)
 {
 	mX = x;
 	mY = y;
 }
 
-MyPoint::MyPoint(MyPoint& pCopie)
+MyPoint::MyPoint(const MyPoint& pCopie) 
 {
-
+	mX = pCopie.mX;
+	mY = pCopie.mY;
 }
+
 MyPoint::~MyPoint() // Il n'ya qu'un seul destrcuteur
 {
 	printf("Je passe dans le desctructeur \n");
 }
 
-void MyPoint::afficher()
+MyPoint MyPoint::operator+(const MyPoint p) const
 {
-	printf("mX = %d mY = %d \n", mX, mY);
+	//On crée un nouveau point
+	MyPoint pResult(mX + p.mX, mY + p.mY);
+	return pResult;
+}
+
+bool MyPoint::operator==(const MyPoint p) const
+{
+	if (mX != p.mX)
+		return false;
+	if (mY != p.mY)
+		return false;
+
+	else return true;
+}
+
+void MyPoint::afficher() const
+{
+	cout << "x:" << mX << " y:" << mY << endl;
 }
 
 
@@ -45,13 +65,13 @@ void  MyPoint::setmX(int X)
 }
 
 
-int MyPoint::getmY()
+int MyPoint::getmY() const
 {
 	printf("mY == %d ", mY);
 	return mY;
 }
 
-int MyPoint::getmX()
+int MyPoint::getmX() const
 {
 	printf("mX == %d ", mX);
 	return mX;

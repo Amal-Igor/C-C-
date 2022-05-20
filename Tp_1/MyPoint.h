@@ -1,22 +1,29 @@
 #pragma once
+#include <iostream>
+using namespace std;
+
 class MyPoint
 {
 public:
 	MyPoint();
 	MyPoint(int x, int y);
-	MyPoint(MyPoint& pCopie);
+	MyPoint(const MyPoint& pCopie);
 	~MyPoint();
 
 
-	void afficher();
+	void afficher() const;
 	void deplace(int dx, int dy);
 
 
 	void setmY(int mY);
 	void setmX(int mX);
 
-	int getmY();
-	int getmX();
+	int getmY() const;
+	int getmX() const;
+
+	MyPoint operator+(const MyPoint p) const;
+	bool  operator==(const MyPoint p) const;
+
 
 
 
