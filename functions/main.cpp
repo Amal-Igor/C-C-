@@ -24,7 +24,7 @@ int carre(int a)
 	return square;
 }
 
-void intervertir(int *val1, int *val2)
+void T(int *val1, int *val2)
 {	
 
 	printf_s("Au début de l'opération on avait *val1: %d et *val2: %d \n", *val1, *val2);

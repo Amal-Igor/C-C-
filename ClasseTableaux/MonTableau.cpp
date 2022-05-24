@@ -1,243 +1,160 @@
 #include "MonTableau.h"
-#include <array>
 
-
-int MonTableau::id = 0;
+int MonTableau::id = 0; //initialisation obligatoire
 
 MonTableau::MonTableau()
-{		//new int**();
+{
 	id = id + 1;
-	mData = nullptr;
+	mData = nullptr; //NULL
 	mTaille = 0;
-	mNom = "";
+	mNom = "Tableau";
+}
+
+MonTableau::MonTableau(const MonTableau& copie) //MonTableau b = a;
+{												//MonTableau b(a);
+	id = id + 1;
+	//cout << "constructeur de copie" << endl;
+	mTaille = copie.mTaille;
+	mNom = copie.mNom;
+
+	int* tmp = new int[mTaille];
+	memcpy(tmp, copie.mData, mTaille * sizeof(int));
+	mData = tmp;
 }
 
 MonTableau::~MonTableau()
-{	
-
-	// penser à delete chacun des élément et le tableau.
-	cout << "Je passe dans le destructeur" << endl;
-}
-
-
-MonTableau::MonTableau(const MonTableau& copie)
 {
-	
-	mData = new int();
-	memcpy(mData, copie.mData, copie.mTaille * sizeof(int));
-	id++;
-	mNom = copie.mNom;
-	mTaille = copie.mTaille;
+
+
 }
 
 int MonTableau::getTaille() const
-{	
-	return mTaille;
-
-}
-
-
-void MonTableau::afficher() const
 {
-	if (mTaille == 0)
-	{
-		cout << mNom << " est vide " << endl;
-	}
-
-	else
-	{
-		for (int i = 0; i < mTaille; i++)
-		{
-			//*mData = *(mData + i);
-			//cout << *mData << endl;
-			cout << i << " -> " << mData[i] << endl;
-			
-		}
-	}
+	return mTaille;
 }
 
 void MonTableau::append(int value)
 {
 	//augmenter la taille de mon tableau mData
-	// insérer data à la fin du tableau
-	//incrémenter mTaille
+	//insérer data à la fin du tableau
+	//incrémenter mTaille;
 	int nouvelletaille = mTaille + 1;
 	int* tmp = new int[nouvelletaille];
 	memcpy(tmp, mData, mTaille * sizeof(int));
-
-	tmp[mTaille] = value; //tmp nouvelletaille-1 = value
-	if (mData != nullptr) // Si tableau pas vide
-	{
-		delete[] mData;
-	}
-
+	tmp[mTaille] = value;//tmp[nouvelletaille-1] = value;
+	if (mData != nullptr)
+		delete[] mData; //on libere l'espace de l'ancien tableau
 	mData = tmp;
 
-	mTaille++;
-
-
+	mTaille++; // mTaille = mTaille+1; 
 }
 
-string MonTableau::getNom() const
+void MonTableau::afficher() const
 {
-	return mNom;
-}
-
-void MonTableau::setNom(string n) {
-
-	this->mNom = n;
-}
-
-
-int MonTableau::get(int index) const
-{	
-	if (index >= mTaille)
+	if (mTaille == 0)
 	{
-		cout << "Il n'y a d'élément à cet index, le tableau contient :: " << getTaille() << " élément" << endl;
+		cout << mNom << " est vide" << endl;
 	}
-	else {
-		int tmp;
-		for (int i = 0; i <= index; i++)
-		{
-			*mData = *(mData + i);
-			tmp = mData[i];
-		}
-		int value = *mData;
-
-		return tmp;
-	}
-	
-}
-
-void MonTableau::inserer(int value, int index)
-{	
-	int nouvelletaille = mTaille + 1;
-
-	int* tmp2 = new int[nouvelletaille]; // nouveau tableau pour contenir le nouvel élément
-
-	for (int i = 0; i < nouvelletaille; i++)
+	else
 	{
-		tmp2[i] = *mData;
-
-		if (i == index)
+		cout << "Donnees de " << mNom << ":" << endl;
+		for (int i = 0; i < mTaille; i++)
 		{
-			*mData = *(mData + i);
-			tmp2[index] = value;
+			cout << i << " -> " << mData[i] << endl;
 		}
-		
-		*mData = *(mData + i);
 	}
-	
-	mTaille += 1;
-
-	mData = tmp2;
-	
 }
 
 void MonTableau::supprimer(int index)
 {
-	int nouvelletaille = mTaille - 1;
+	if (index < 0 || index >= mTaille)
+		return;
+
+	int* tmp = new int[mTaille - 1];
+	memcpy(tmp, mData, index * sizeof(int));
+	//tmp = &tmp[0];
+	memcpy(&tmp[index], &mData[index + 1], (mTaille - index) * sizeof(int));
+	if (mData != nullptr)
+		delete[] mData;
+	mData = tmp;
+	mTaille--;
+}
+
+void MonTableau::inserer(int value, int index)
+{
+	if (index < 0 || index >= mTaille)
+		return;
+
+	int nouvelletaille = mTaille + 1;
 	int* tmp = new int[nouvelletaille];
-	memcpy(tmp, mData, mTaille * sizeof(int));
-	int* tmp2 = new int[nouvelletaille];
+	memcpy(tmp, mData, (index) * sizeof(int));
+	tmp[index] = value;
+	memcpy(&tmp[index + 1], &mData[index], (mTaille - index + 1) * sizeof(int));
 
-	for (int i = 0; i < mTaille; i++)
-	{	
-		if (i == index) {
-			delete(mData[i]);
-			i--;
-		}
-		//*mData = *(mData + i);
-		tmp2[i] = mData[i];
-	}
-	mTaille-=1;
-	mData = tmp2;
-
-
+	if (mData != nullptr)
+		delete[] mData; //on libere l'espace de l'ancien tableau
+	mData = tmp;
+	mTaille++; // mTaille = mTaille+1; 
 }
 
 void MonTableau::modifier(int value, int index)
 {
+	if (index < 0 || index >= mTaille)
+		return;
 
-	int* tmp = new int[mTaille];
-	memcpy(tmp, mData, mTaille * sizeof(int));
-
-	tmp[index] = value;
-
-	mData = tmp;
+	mData[index] = value;
 }
 
-
-bool MonTableau::operator==(const MonTableau& tab) const
+int MonTableau::get(int index) const
 {
+	if (index < 0 || index >= mTaille)
+		return numeric_limits<int>::max();
 
-	bool isEqual = false;
-	if (tab.getTaille() != mTaille)
-	{
-		isEqual = false;
-	}
-
-	else {
-		int count =0;
-		for (int i = 0; i < mTaille; i++)
-		{
-			if (mData[i] != tab.mData[i])
-			{
-				count--;
-			}
-			count++;
-		}
-		if (count == mTaille-1) {
-			isEqual = true;
-		}
-	}
-	return isEqual;
+	return mData[index];
 }
 
+bool MonTableau::operator==(const MonTableau& tab)const
+{
+	if (mTaille != tab.getTaille())
+		return false;
+
+	for (int i = 0; i < mTaille; i++)
+	{
+		if (mData[i] != tab.get(i))
+			return false;
+	}
+	return true;
+}
 
 MonTableau MonTableau::operator+(const MonTableau tab) const
 {
-	MonTableau t_new;
-	
-	int nouvelletaille = mTaille + tab.getTaille();
-	memcpy(t_new.mData, t_new.mData, nouvelletaille * sizeof(int));
-	//memcpy(tmp, mData, nouvelletaille * sizeof(int));
+	MonTableau tmp;
 
-	if (mTaille == tab.getTaille())
-	{
-		for (int i = tab.getTaille(); i < nouvelletaille; i++)
-		{
-			while (i < mTaille)
-			{
-				t_new.append(mData[i]) ;
-			}
+	for (int i = 0; i < mTaille; i++)
+		tmp.append(mData[i]);
 
-			for (int j = 0; j < tab.getTaille(); j++)
-			{
-				t_new.append(tab.mData[j]);
-			}
-		}
-	}
+	for (int i = 0; i < tab.getTaille(); i++)
+		tmp.append(tab.get(i));
 
-	return t_new;
+	tmp.setNom(mNom + tab.getNom());
+
+	return tmp;
 }
 
 
-
-//Montableau b;
-//b = a
+//MonTableau b;
+//b.append(3);
+//b = a;
 MonTableau& MonTableau::operator=(const MonTableau tab)
 {
-	//copie taille
-	//copie nom
 	mTaille = tab.mTaille;
 	mNom = tab.mNom;
 	int* tmp = new int[mTaille];
 	memcpy(tmp, tab.mData, mTaille * sizeof(int));
 
-
+	if (mData != nullptr)
+		delete[] mData; //on libere l'espace de l'ancien tableau
 
 	mData = tmp;
 	return *this;
-
 }

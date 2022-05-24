@@ -6,7 +6,7 @@ class Position
 
 	public:
 		Position();
-		//Position(int x = 0, int y = 0);
+		Position(int x, int y);
 		~Position();
 
 		void afficher();
@@ -17,6 +17,7 @@ class Position
 		int getY() ;
 
 		bool operator==(const Position pos) const;
+		//bool operator!=(const Position pos) const;
 		//Voir si on implémente ou pas
 		//bool isNear(const Position p, int precision = 0)const;
 
