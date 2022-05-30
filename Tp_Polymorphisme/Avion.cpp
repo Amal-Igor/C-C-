@@ -80,6 +80,7 @@ void  Avion::seDeplacer()
                     updatePosY(p.getY());
                 }
             }
+
             else{
             if (p.getX() > targetPos.getX()) {
                 p.setX(p.getX() - 2);

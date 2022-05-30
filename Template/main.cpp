@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <iostream>
 #include "MyPointTemplate.h"
+#include "MonTableau.h"
 using namespace std;
 
 
@@ -25,16 +26,17 @@ template <class T> T soustraction(T tA, T tB)
 
 int main()
 {	
-		
-	MyPoint<int> p(8, 9);
-	MyPoint<int> p2(8, 9);
-
-	MyPoint<int> p3 = p + p2;
-	p3.afficher();
+	MonTableau<double> p;
+	MonTableau<double> *p2= new MonTableau<double>();
 
 
+	p.append(8.88);
+	p2->append(8.88);
+	bool test;
 
-
+	cout << boolalpha << test << endl;
+	//p2 = nullptr;
+	//cout << boolalpha << (p2 == p) << endl;
 
 	return 0;
 }
