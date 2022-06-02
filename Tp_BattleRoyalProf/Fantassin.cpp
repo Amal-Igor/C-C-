@@ -1,25 +1,25 @@
 #include "Fantassin.h"
 
-Fantassin::Fantassin()
-{
-	mVie = 0;
-	mAttaque = 0;
-	mPortee = 10;
-	mMobilite =1;
-	mBouclier =0;
-	mType = "";
-	mDamier = NULL;
-}
+//Fantassin::Fantassin()
+//{
+//	mVie = 0;
+//	mAttaque = 0;
+//	mPortee = 3;
+//	mMobilite =1;
+//	mBouclier =0;
+//	mType = "Fantassin";
+//	mDamier = NULL;
+//}
 
 
 Fantassin::Fantassin(Damier* map)
 {
-	mVie = 0;
-	mAttaque = 0;
-	mPortee = 0;
-	mMobilite = 0;
+	mVie = 10;
+	mAttaque = 3;
+	mPortee = 3;
+	mMobilite = 3;
 	mBouclier = 0;
-	mType = "";
+	mType = "Fantassin";
 	mDamier = map;
 }
 
@@ -76,4 +76,42 @@ string Fantassin::getType()
 void Fantassin::setType(string type)
 {
 	mType = type;
+}
+
+void  Fantassin::attaquer()
+{
+	Fantassin* p = this;
+	vector<Fantassin*> targets = mDamier->getPersoCible(p);
+	int dmg = getAttack();
+
+
+	if(targets.size() > 0)
+	{ 
+		for (int i = 0; i < targets.size(); i++)
+		{	
+			targets[i]->infligerDegats(dmg, "");
+
+			cout << "J'attaque !!" << endl;
+		}
+	}
+	
+	else {
+		cout << "Pas d'enemis je ne peux pas attaquer  !!!" << endl;
+	}
+
+}
+
+void  Fantassin::deplacer()
+{	
+
+	//Fantassin* p = this;
+	mDamier->deplacerPerso(this);
+	cout << "Je me déplace !!" << endl;
+}
+
+void  Fantassin::infligerDegats(int attaque, string type)
+{	
+
+	this->setVie(getVie() - attaque);
+
 }

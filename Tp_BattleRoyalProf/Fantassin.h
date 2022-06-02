@@ -1,16 +1,15 @@
-#include <string>
-//#include "Damier.h"
 #pragma once
-
+#include "Damier.h"
+#include <string>
 using namespace std;
 class Damier;
+
 
 class Fantassin
 {
 
 public:
-
-	Fantassin();
+;
 	Fantassin(Damier* map);
 	int getVie();
 	void setVie(int hp);
@@ -33,7 +32,9 @@ public:
 	void afficher();
 	void toString();
 	 
-	void infligerDegats();
+	void attaquer();
+	void deplacer();
+	void infligerDegats(int attaque, string type);
 
 protected:
 	int mVie;

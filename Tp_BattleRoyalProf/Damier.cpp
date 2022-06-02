@@ -1,5 +1,5 @@
 #include "Damier.h"
-#include "Tools.h"
+//#include "Tools.h"
 
 
 
@@ -50,11 +50,11 @@ bool Damier::setRandomPerso(Fantassin* perso)
 		int column = myRand(0, mLongueur-1);
 		vector<Fantassin*> tmp = mGrille[row];
 		//vector<Fantassin*>::iterator it = tmp.begin();
-		if (tmp[column] != NULL)
-		{
-			//cout << "Pas de place à cet emplacement ::" << endl;
-			return false;
-		}
+		//if (tmp[column] != NULL)
+		//{
+		//	//cout << "Pas de place à cet emplacement ::" << endl;
+		//	return false;
+		//}
 
 		if (tmp[column] == NULL)
 		{
@@ -112,62 +112,112 @@ vector<Fantassin*> Damier::getPersoCible(Fantassin* perso)
 	int portee = perso->getPortee();
 	MyPoint pTmp;
 	
+
+
 	for (int i = 0; i < mLargeur; i++)
 	{
 		for (int j = 0; j < mLongueur; j++)
 		{
 
-			if (mGrille[i][j] != NULL && mGrille[i][j] != perso)
+			if ((mGrille[i][j] != NULL))
 			{
-
 				pTmp = getPosition(mGrille[i][j]);
 
-				if ( p.getLongueur(pTmp) <= portee)
+				if ( (p.getLongueur(pTmp) <= portee) && (mGrille[i][j] != perso))
 				{
 					tmp.push_back(mGrille[i][j]);
 				}
 			}
 		}
-
 	}
-
-	
-	cout << "Enemis à coté: " << tmp.size() << endl;
 	return tmp;
 }
 
-
-
 bool Damier::deplacerPerso(Fantassin* perso)
 {
+
 	MyPoint p = getPosition(perso);
-	p.afficher();
-	int mobilite = perso->getMobilite();
+	vector<MyPoint> tmp;
+	MyPoint pTmp;
 
-	int checkBorderLowX = p.getmX() - mobilite;
-	int checkBorderMaxX = p.getmX() + mobilite;
-
-	int checkBorderLowY = p.getmY() - mobilite;
-	int checkBorderMaxY = p.getmY() + mobilite;
-
-	if (checkBorderLowX < 0)
-		checkBorderLowX = getmod(checkBorderLowX, mLargeur);
-	if (checkBorderLowY < 0)
-		checkBorderLowY = getmod(checkBorderLowY, mLongueur);
-	if (checkBorderMaxX > mLargeur)
-		checkBorderMaxX = getmod(checkBorderMaxX, mLargeur);
-	if (checkBorderMaxY > mLongueur)
-		checkBorderMaxY = getmod(checkBorderMaxY, mLongueur);
-
-	p.setmX(myRand(checkBorderLowX, checkBorderMaxX));
-	p.setmY(myRand(checkBorderLowY, checkBorderMaxY));
-	if (getPersonnage(p) == NULL) // nullptr???
+	for (int i = 0; i < mLargeur; i++)
 	{
-		mGrille[p.getmX()][p.getmY()] = perso;
-		p.afficher();
+		for (int j = 0; j < mLongueur; j++)
+		{
+
+			if (mGrille[i][j] == NULL && mGrille[i][j]!= perso)
+			{
+				
+				pTmp.setmX(i);
+				pTmp.setmY(j);
+
+				if (p.getLongueur(pTmp) <= perso->getMobilite()+1)
+				{
+					tmp.push_back(pTmp);
+				}
+			}
+		}
+	}
+
+	if (tmp.size() == 0)
+	{
+		return false;
+	}
+
+		int randPos = myRand(0, tmp.size() -1);
+		MyPoint newPos(tmp[randPos]);
+		mGrille[newPos.getmX()][newPos.getmY()] = perso; // vérifier si x/y i/j
+		mGrille[p.getmX()][p.getmY()] == NULL;
+
+
 		return true;
+}
+
+void Damier::afficher()
+{
+	for (int i = 0; i < mLargeur; i++)
+	{
+		for (int j = 0; j < mLongueur; j++)
+		{
+			if (mGrille[i][j] != NULL)
+			{
+				cout << "Il y a un personnage  en i:" << i << " j :: " << j << endl;
+			}
+		}
 	}
 }
+
+
+//bool Damier::deplacerPerso(Fantassin* perso)
+//{
+//	MyPoint p = getPosition(perso);
+//	p.afficher();
+//	int mobilite = perso->getMobilite();
+//
+//	int checkBorderLowX = p.getmX() - mobilite;
+//	int checkBorderMaxX = p.getmX() + mobilite;
+//
+//	int checkBorderLowY = p.getmY() - mobilite;
+//	int checkBorderMaxY = p.getmY() + mobilite;
+//
+//	if (checkBorderLowX < 0)
+//		checkBorderLowX = getmod(checkBorderLowX, mLargeur);
+//	if (checkBorderLowY < 0)
+//		checkBorderLowY = getmod(checkBorderLowY, mLongueur);
+//	if (checkBorderMaxX > mLargeur)
+//		checkBorderMaxX = getmod(checkBorderMaxX, mLargeur);
+//	if (checkBorderMaxY > mLongueur)
+//		checkBorderMaxY = getmod(checkBorderMaxY, mLongueur);
+//
+//	p.setmX(myRand(checkBorderLowX, checkBorderMaxX));
+//	p.setmY(myRand(checkBorderLowY, checkBorderMaxY));
+//	if (getPersonnage(p) == NULL) // nullptr???
+//	{
+//		mGrille[p.getmX()][p.getmY()] = perso;
+//		p.afficher();
+//		return true;
+//	}
+//}
 
 
 
@@ -177,10 +227,11 @@ void Damier::removeDeadPerso()
 	{
 		for (int j = 0; j < mLongueur; j++)
 		{
-			if (mGrille[i][j]->getVie() == 0)
+			if (mGrille[i][j] != NULL && mGrille[i][j]->getVie() <= 0)
 			{	
-				delete mGrille[i][j];
+				//
 				mGrille[i][j] = NULL;
+				//delete mGrille[i][j];
 			}
 		}
 	}
@@ -200,13 +251,14 @@ int Damier::persoCount()
 			}
 		}
 	}
+
 	return count;
 }
 
 
+
+
 /*
-
-
 vector<Fantassin*> Damier::getPersoCible(Fantassin* perso)
 {
 
@@ -247,8 +299,6 @@ vector<Fantassin*> Damier::getPersoCible(Fantassin* perso)
 
 			}
 		}
-
-
 	}
 
 	for (int i = min(checkBorderLowX, checkBorderMaxX); i < max(checkBorderLowX, checkBorderMaxX); i++)

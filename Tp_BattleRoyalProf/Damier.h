@@ -1,13 +1,15 @@
+#pragma once
 #include <vector>
 #include <iostream>
 #include "MyPoint.h"
+#include "Tools.h"
 #include "Fantassin.h"
 #include <math.h>
 
 using namespace std;
-#pragma once
 
-//class Fantassin;
+
+class Fantassin;
 
 class Damier
 {
@@ -31,6 +33,8 @@ public:
 	bool deplacerPerso(Fantassin* perso);
 	void removeDeadPerso();
 	int persoCount();
+
+	void afficher();
 
 
 

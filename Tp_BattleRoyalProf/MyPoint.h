@@ -24,7 +24,8 @@ public:
 	int getmY();
 	int getmX();
 
-	double getLongueur(MyPoint destination);
+	//double getLongueur(MyPoint destination);
+	int getLongueur(MyPoint destination);
 
 	bool  operator==(const MyPoint p) const;
 

@@ -24,6 +24,7 @@
     <ProjectGuid>{cb036e8b-4d4b-4d92-8d3d-6979f86fa2e5}</ProjectGuid>
     <RootNamespace>TpBattleRoyalProf</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Tp_BattleRoyalProf_UML</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

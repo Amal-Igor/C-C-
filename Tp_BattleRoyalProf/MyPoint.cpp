@@ -64,7 +64,23 @@ bool MyPoint::operator==(const MyPoint p) const
 }
 
 
-double MyPoint::getLongueur(MyPoint destination)
+//double MyPoint::getLongueur(MyPoint destination)
+//{
+//	int xA = mX;
+//	int xB = destination.getmX();
+//
+//	int yA = mY;
+//	int yB = destination.getmY();
+//
+//	double first = pow((yB - yA), 2);
+//	double second = pow((xB - xA), 2);
+//
+//
+//	double res = sqrt(first + second);
+//	return res;
+//}
+
+int MyPoint::getLongueur(MyPoint destination)
 {
 	int xA = mX;
 	int xB = destination.getmX();
@@ -72,11 +88,11 @@ double MyPoint::getLongueur(MyPoint destination)
 	int yA = mY;
 	int yB = destination.getmY();
 
-	double first = pow((yB - yA), 2);
-	double second = pow((xB - xA), 2);
+	int first = pow((yB - yA), 2);
+	int second = pow((xB - xA), 2);
 
 
-	double res = sqrt(first + second);
+	int res = sqrt(first + second);
 	return res;
 }
 
